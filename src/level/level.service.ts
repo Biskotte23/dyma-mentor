@@ -1,38 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { LevelEntity } from './entities/level.entity';
-import { LevelWithSubjects } from './level';
+import { Level } from './level.entity';
 
 @Injectable()
 export class LevelService {
   constructor(
-    @InjectRepository(LevelEntity)
-    private levelRepository: Repository<LevelEntity>,
+    @InjectRepository(Level)
+    private levelRepository: Repository<Level>,
   ) {}
 
-  public async getAllLevels(): Promise<LevelEntity[]> {
+  public async getAllLevels(): Promise<Level[]> {
     return await this.levelRepository.find();
   }
 
-  public async getLevelByName(name: string): Promise<LevelEntity> {
+  public async getLevelByName(name: string): Promise<Level> {
     return await this.levelRepository.findOneBy({ name: name });
   }
 
-  public async getLevelWithItsSubjects(
-    name: string,
-  ): Promise<LevelWithSubjects> {
-    const level = await this.getLevelByName(name);
+  // public async getLevelWithItsSubjects(
+  //   name: string,
+  // ): Promise<LevelWithSubjects> {
+  //   const level = await this.getLevelByName(name);
 
-    return {
-      level: {
-        id: level.id,
-        name: level.name,
-      },
-      subjects: level.subjects.map((subject) => ({
-        id: subject.id,
-        name: subject.name,
-      })),
-    };
-  }
+  //   return {
+  //     level: {
+  //       id: level.id,
+  //       name: level.name,
+  //     },
+  //     subjects: level.subjects.map((subject) => ({
+  //       id: subject.id,
+  //       name: subject.name,
+  //     })),
+  //   };
+  // }
 }

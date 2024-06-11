@@ -22,10 +22,10 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:create": "sh ./src/database/scripts/create-migration.sh",
     "migration:generate": "sh ./src/database/scripts/generate-migration.sh",
-    "migration:run": "npm run build && npm run typeorm -- migration:run -d dist/database/database-config.js",
-    "migration:revert": "npm run build && npm run typeorm -- migration:revert -d dist/database/database-config.js",
-    "migration:fake:run": "npm run build && npm run typeorm -- migration:run -d dist/database/database-config.js --fake",
-    "migration:fake:revert": "npm run build && npm run typeorm -- migration:revert -d dist/database/database-config.js --fake"
+    "migration:run": "sh ./src/database/scripts/run-migration.sh",
+    "migration:revert": "sh ./src/database/scripts/revert-migration.sh",
+    "migration:fake:run": "sh ./src/database/scripts/run-migration.fake.sh",
+    "migration:fake:revert": "sh ./src/database/scripts/revert-migration.fake.sh"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.2.2",

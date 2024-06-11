@@ -1,4 +1,4 @@
-import { Subject } from '../subject/subject';
+import { Subject } from 'src/subject/subject';
 
 export type Level = {
   id: number;

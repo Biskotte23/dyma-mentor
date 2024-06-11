@@ -4,18 +4,23 @@ set -e
 
 generation_name=$1
 
-export $(grep -v '^#' .env | xargs)
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
 
 npm run build
 
-output=$(npm run typeorm -- migration:generate -d ./dist/db/database-config.js $MIGRATION_FOLDER_PATH/$generation_name)
+output=$(npm run typeorm -- migration:generate -d $DATABASE_CONFIG_FILE_PATH $MIGRATION_FOLDER_PATH/$generation_name | tee)
 
-filename=$(echo "$output" | grep -oP "Migration .+/\K[^ ]+")
+filename=$(echo "$output" | sed -n 's/.*Migration .\+\/\([^ ]\+\).*/\1/p')
 
-if [ -n "$filename" ]; then
+if [[ -z "$filename" ]]; then
+  echo "$output"
+  echo
+  echo "Error: Migration has failed"
+  exit 1
+else
   fullpath="$MIGRATION_FOLDER_PATH/$filename"
   npx eslint $fullpath --fix
   echo "Migration generated: $fullpath"
-else
-  echo "Migration has failed"
 fi

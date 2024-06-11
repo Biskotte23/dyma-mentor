@@ -2,22 +2,29 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 abstract class DatabaseConfig {
-  public constructor(private options: DataSourceOptions) {
-    console.log('OPTIONS', options);
+  private options: DataSourceOptions;
+
+  public constructor(options: DataSourceOptions) {
+    this.options = {
+      ...options,
+      synchronize: false,
+      migrations: [`${__dirname}/database/migrations/*{.ts,.js}`],
+    };
   }
 
   public getTypeOrmModuleOptions(): TypeOrmModuleOptions {
     return {
       ...this.options,
-      synchronize: false,
-      // entities: ['dist/**/*.entity{.ts,.js}'],
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
+      autoLoadEntities: true,
     };
   }
 
   public getSource(): DataSource {
-    return new DataSource(this.options);
+    const options = {
+      ...this.options,
+      entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
+    };
+    return new DataSource(options);
   }
 }
 
@@ -33,5 +40,3 @@ export class MariadbDatabaseConfig extends DatabaseConfig {
     });
   }
 }
-
-export default new MariadbDatabaseConfig().getSource();
