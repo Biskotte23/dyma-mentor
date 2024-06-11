@@ -7,10 +7,7 @@ import { EnvironmentModule } from './environment/environment.module';
 import { AnnounceModule } from './announce/announce.module';
 import { LevelModule } from './level/level.module';
 import { SubjectModule } from './subject/subject.module';
-import { MariadbDatabaseConfig } from './database/ormconfig';
-
-const typeOrmModuleOptions =
-  new MariadbDatabaseConfig().getTypeOrmModuleOptions();
+import ormConfig from './database/ormconfig';
 
 @Module({
   imports: [
@@ -18,7 +15,7 @@ const typeOrmModuleOptions =
     EnvironmentModule,
     LevelModule,
     SubjectModule,
-    TypeOrmModule.forRoot(typeOrmModuleOptions),
+    TypeOrmModule.forRoot(ormConfig.getTypeOrmModuleOptions()),
     CacheModule.register(),
   ],
   controllers: [AppController],

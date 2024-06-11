@@ -1,6 +1,8 @@
-import { MariadbDatabaseConfig } from './ormconfig';
 import * as dotenvFlow from 'dotenv-flow';
 
+// Must be first instruction to work, even before imports
 dotenvFlow.config({ default_node_env: 'development' });
 
-export default new MariadbDatabaseConfig().getSource();
+import ormConfig from './ormconfig';
+
+export default ormConfig.getSource();
