@@ -1,14 +1,14 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { LevelService } from './level.service';
+import { Level } from './level.entity';
+import { CreateLevelDTO } from './dto/create-level.dto';
 
 @Controller('levels')
 export class LevelController {
   constructor(private readonly levelService: LevelService) {}
 
-  // @Get(':name/subjects')
-  // async getLevelWithItsSubjects(
-  //   @Param('name') name: string,
-  // ): Promise<LevelWithSubjects> {
-  //   return await this.levelService.getLevelWithItsSubjects(name);
-  // }
+  @Post()
+  async createLevel(@Body() level: CreateLevelDTO): Promise<Level> {
+    return await this.levelService.createLevel(level);
+  }
 }

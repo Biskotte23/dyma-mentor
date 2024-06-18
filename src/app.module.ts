@@ -3,20 +3,22 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EnvironmentModule } from './environment/environment.module';
 import { AnnounceModule } from './announce/announce.module';
 import { LevelModule } from './level/level.module';
 import { SubjectModule } from './subject/subject.module';
-import ormConfig from './database/ormconfig';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { typeormConfig } from './database/typeorm.config';
 
 @Module({
   imports: [
     AnnounceModule,
-    EnvironmentModule,
     LevelModule,
     SubjectModule,
-    TypeOrmModule.forRoot(ormConfig.getTypeOrmModuleOptions()),
+    TypeOrmModule.forRoot(typeormConfig.getTypeOrmModuleOptions()),
     CacheModule.register(),
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

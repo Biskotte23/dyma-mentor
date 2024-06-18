@@ -1,15 +1,15 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSourceOptions, DataSource } from 'typeorm';
 
-export type OrmConfigOptions = Omit<
+export type DatabaseConfigOptions = Omit<
   DataSourceOptions,
   'synchronize' | 'entities' | 'migrations'
 >;
 
-export abstract class OrmConfig {
+export abstract class DatabaseConfig {
   private options: DataSourceOptions;
 
-  public constructor(options: OrmConfigOptions) {
+  public constructor(options: DatabaseConfigOptions) {
     this.options = {
       ...options,
       synchronize: false,
@@ -28,6 +28,7 @@ export abstract class OrmConfig {
     const options = {
       ...this.options,
       entities: [`${__dirname}/../../**/*.entity{.ts,.js}`],
+      migrations: [`${__dirname}/../migrations/*{.ts,.js}`],
     };
     return new DataSource(options);
   }

@@ -1,15 +1,15 @@
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
-import { OrmConfig } from './orm-config';
+import { DatabaseConfig } from './database.config';
 
-type MariadbDataSourceOptions = Required<
+type MariadbConfigOptions = Required<
   Pick<
     MysqlConnectionOptions,
     'host' | 'port' | 'username' | 'password' | 'database'
   >
 >;
 
-export class MariadbConfig extends OrmConfig {
-  constructor(options: MariadbDataSourceOptions) {
+export class MariadbConfig extends DatabaseConfig {
+  constructor(options: MariadbConfigOptions) {
     super({
       type: 'mariadb',
       ...options,
