@@ -9,6 +9,7 @@ import { SubjectModule } from './subject/subject.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { typeormConfig } from './database/typeorm.config';
+import { CourseModule } from './course/course.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { typeormConfig } from './database/typeorm.config';
     CacheModule.register(),
     UserModule,
     AuthModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

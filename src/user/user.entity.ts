@@ -1,5 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Role } from './interfaces/role';
+import { Course } from 'src/course/course.entity';
+import { Announce } from 'src/announce/announce.entity';
 
 @Entity()
 export class User {
@@ -23,4 +31,12 @@ export class User {
     default: Role.Admin,
   })
   role: Role;
+
+  @OneToMany(() => Course, (course) => course.announce)
+  @JoinColumn()
+  courses: Course[];
+
+  @OneToMany(() => Announce, (announce) => announce.teacher)
+  @JoinColumn()
+  announces: Announce[];
 }
