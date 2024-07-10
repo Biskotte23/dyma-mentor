@@ -9,9 +9,6 @@ export class Subject {
   @Column()
   name: string;
 
-  @Column()
-  name2: string;
-
   @OneToMany(() => Announce, (announce) => announce.subject)
   announces: Announce[];
 }

@@ -21,6 +21,7 @@ export class UserService {
     lastName,
     email,
     password,
+    role,
   }: CreateUserDTO): Promise<User> {
     const passwordHash = await hash(password, 10);
 
@@ -29,6 +30,7 @@ export class UserService {
       lastName,
       email,
       passwordHash,
+      role,
     });
   }
 }

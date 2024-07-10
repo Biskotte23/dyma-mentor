@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from './interfaces/role';
 
 @Entity()
 export class User {
@@ -16,4 +17,10 @@ export class User {
 
   @Column()
   passwordHash: string;
+
+  @Column({
+    enum: Role,
+    default: Role.Admin,
+  })
+  role: Role;
 }
