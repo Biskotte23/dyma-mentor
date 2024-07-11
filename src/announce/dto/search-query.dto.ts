@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class SearchQuery {
+export class SearchQueryDTO {
   @IsOptional()
   @IsString()
   levelName: string;

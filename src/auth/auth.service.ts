@@ -16,7 +16,7 @@ export class AuthService {
     email,
     password,
   }: AuthSignInDTO): Promise<SignInTokenDTO> {
-    const user = await this.userService.findOne(email);
+    const user = await this.userService.findOneByEmail(email);
 
     if (!this.arePasswordsEqualed(user.passwordHash, password)) {
       throw new UnauthorizedException();

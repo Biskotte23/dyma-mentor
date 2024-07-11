@@ -20,6 +20,6 @@ export class UserController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   public async getUserInfo(@Req() { user }): Promise<User> {
-    return this.userService.findOne(user.username);
+    return this.userService.findOneByEmail(user.username);
   }
 }

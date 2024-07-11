@@ -12,7 +12,11 @@ export class UserService {
     private repository: Repository<User>,
   ) {}
 
-  public async findOne(email: string): Promise<User> {
+  public async findOneById(id: number): Promise<User> {
+    return await this.repository.findOneBy({ id });
+  }
+
+  public async findOneByEmail(email: string): Promise<User> {
     return await this.repository.findOneBy({ email });
   }
 
